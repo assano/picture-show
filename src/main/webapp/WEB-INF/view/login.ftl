@@ -28,7 +28,7 @@
         </div>
 
         <div class="page-container">
-            <h1><a href="register.html" style="color:red;text-decoration:none;">注册</a></h1>
+            <h1><a href="register" style="color:red;text-decoration:none;">注册</a></h1>
         </div>
 		
         <!-- Javascript -->

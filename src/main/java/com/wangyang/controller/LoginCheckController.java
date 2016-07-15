@@ -26,11 +26,11 @@ public class LoginCheckController {
 
         if (loginCheckService.checkUser(user) == 0) {
 
-            modelAndView.setViewName("login");
+            modelAndView.setViewName("redirect:login");
 
         } else {
 
-            modelAndView.setViewName("index");
+            modelAndView.setViewName("redirect:index");
         }
 
         return modelAndView;

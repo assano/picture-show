@@ -20,10 +20,14 @@
 
         <div class="page-container">
             <h1>注册</h1>
-            <form action="" method="post">
-                <input type="text" name="username" class="username" placeholder="用户名">
+            <#if info??>
+                <br><br>
+                <h3><font color="red">${info}</font></h3>
+            </#if>
+            <form action="register_check" method="post">
+                <input type="text" name="userName" class="username" placeholder="用户名">
                 <input type="password" name="password" class="password" placeholder="密码">
-                <input type="password" name="repeatpassword" class="password" placeholder="重复密码">
+                <input type="password" name="repeatPassword" class="password" placeholder="重复密码">
                 <button type="submit">注册</button>
             </form>
         </div>
