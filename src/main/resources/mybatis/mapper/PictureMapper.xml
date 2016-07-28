@@ -4,8 +4,13 @@
   <resultMap id="BaseResultMap" type="com.wangyang.mapper.model.Picture" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="picture_path" property="picturePath" jdbcType="VARCHAR" />
+    <result column="small_picture_path" property="smallPicturePath" jdbcType="VARCHAR" />
+    <result column="large_picture_path" property="largePicturePath" jdbcType="VARCHAR" />
     <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="picture_name" property="pictureName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.wangyang.mapper.model.Picture" extends="BaseResultMap" >
+    <result column="picture_description" property="pictureDescription" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,8 +71,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, picture_path, upload_time
+    id, user_id, small_picture_path, large_picture_path, upload_time, picture_name
   </sql>
+  <sql id="Blob_Column_List" >
+    picture_description
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.wangyang.mapper.model.PictureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from picture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangyang.mapper.model.PictureExample" >
     select
     <if test="distinct" >
@@ -85,9 +109,11 @@
       limit #{limitStart}, #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from picture
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -102,10 +128,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wangyang.mapper.model.Picture" >
-    insert into picture (id, user_id, picture_path, 
-      upload_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{picturePath,jdbcType=VARCHAR}, 
-      #{uploadTime,jdbcType=TIMESTAMP})
+    insert into picture (id, user_id, small_picture_path, 
+      large_picture_path, upload_time, picture_name, 
+      picture_description)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{smallPicturePath,jdbcType=VARCHAR}, 
+      #{largePicturePath,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}, #{pictureName,jdbcType=VARCHAR}, 
+      #{pictureDescription,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wangyang.mapper.model.Picture" >
     insert into picture
@@ -116,11 +144,20 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="picturePath != null" >
-        picture_path,
+      <if test="smallPicturePath != null" >
+        small_picture_path,
+      </if>
+      <if test="largePicturePath != null" >
+        large_picture_path,
       </if>
       <if test="uploadTime != null" >
         upload_time,
+      </if>
+      <if test="pictureName != null" >
+        picture_name,
+      </if>
+      <if test="pictureDescription != null" >
+        picture_description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -130,11 +167,20 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="picturePath != null" >
-        #{picturePath,jdbcType=VARCHAR},
+      <if test="smallPicturePath != null" >
+        #{smallPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="largePicturePath != null" >
+        #{largePicturePath,jdbcType=VARCHAR},
       </if>
       <if test="uploadTime != null" >
         #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pictureName != null" >
+        #{pictureName,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureDescription != null" >
+        #{pictureDescription,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -153,13 +199,35 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.picturePath != null" >
-        picture_path = #{record.picturePath,jdbcType=VARCHAR},
+      <if test="record.smallPicturePath != null" >
+        small_picture_path = #{record.smallPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.largePicturePath != null" >
+        large_picture_path = #{record.largePicturePath,jdbcType=VARCHAR},
       </if>
       <if test="record.uploadTime != null" >
         upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.pictureName != null" >
+        picture_name = #{record.pictureName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pictureDescription != null" >
+        picture_description = #{record.pictureDescription,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update picture
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      small_picture_path = #{record.smallPicturePath,jdbcType=VARCHAR},
+      large_picture_path = #{record.largePicturePath,jdbcType=VARCHAR},
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      picture_name = #{record.pictureName,jdbcType=VARCHAR},
+      picture_description = #{record.pictureDescription,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -168,8 +236,10 @@
     update picture
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      picture_path = #{record.picturePath,jdbcType=VARCHAR},
-      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP}
+      small_picture_path = #{record.smallPicturePath,jdbcType=VARCHAR},
+      large_picture_path = #{record.largePicturePath,jdbcType=VARCHAR},
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      picture_name = #{record.pictureName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,20 +250,41 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="picturePath != null" >
-        picture_path = #{picturePath,jdbcType=VARCHAR},
+      <if test="smallPicturePath != null" >
+        small_picture_path = #{smallPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="largePicturePath != null" >
+        large_picture_path = #{largePicturePath,jdbcType=VARCHAR},
       </if>
       <if test="uploadTime != null" >
         upload_time = #{uploadTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="pictureName != null" >
+        picture_name = #{pictureName,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureDescription != null" >
+        picture_description = #{pictureDescription,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wangyang.mapper.model.Picture" >
+    update picture
+    set user_id = #{userId,jdbcType=INTEGER},
+      small_picture_path = #{smallPicturePath,jdbcType=VARCHAR},
+      large_picture_path = #{largePicturePath,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      picture_name = #{pictureName,jdbcType=VARCHAR},
+      picture_description = #{pictureDescription,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wangyang.mapper.model.Picture" >
     update picture
     set user_id = #{userId,jdbcType=INTEGER},
-      picture_path = #{picturePath,jdbcType=VARCHAR},
-      upload_time = #{uploadTime,jdbcType=TIMESTAMP}
+      small_picture_path = #{smallPicturePath,jdbcType=VARCHAR},
+      large_picture_path = #{largePicturePath,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      picture_name = #{pictureName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

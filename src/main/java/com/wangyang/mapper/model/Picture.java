@@ -7,9 +7,15 @@ public class Picture {
 
     private Integer userId;
 
-    private String picturePath;
+    private String smallPicturePath;
+
+    private String largePicturePath;
 
     private Date uploadTime;
+
+    private String pictureName;
+
+    private String pictureDescription;
 
     public Integer getId() {
         return id;
@@ -27,12 +33,20 @@ public class Picture {
         this.userId = userId;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public String getSmallPicturePath() {
+        return smallPicturePath;
     }
 
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath == null ? null : picturePath.trim();
+    public void setSmallPicturePath(String smallPicturePath) {
+        this.smallPicturePath = smallPicturePath == null ? null : smallPicturePath.trim();
+    }
+
+    public String getLargePicturePath() {
+        return largePicturePath;
+    }
+
+    public void setLargePicturePath(String largePicturePath) {
+        this.largePicturePath = largePicturePath == null ? null : largePicturePath.trim();
     }
 
     public Date getUploadTime() {
@@ -41,5 +55,21 @@ public class Picture {
 
     public void setUploadTime(Date uploadTime) {
         this.uploadTime = uploadTime;
+    }
+
+    public String getPictureName() {
+        return pictureName;
+    }
+
+    public void setPictureName(String pictureName) {
+        this.pictureName = pictureName == null ? null : pictureName.trim();
+    }
+
+    public String getPictureDescription() {
+        return pictureDescription;
+    }
+
+    public void setPictureDescription(String pictureDescription) {
+        this.pictureDescription = pictureDescription == null ? null : pictureDescription.trim();
     }
 }
