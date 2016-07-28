@@ -12,7 +12,7 @@ import java.util.List;
  * Created by wy on 2016/7/14.
  */
 @Service
-public class LoginCheckService {
+public class LoginService {
 
     @Autowired
     private UserMapper userMapper;

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by wy on 2016/7/15.
  */
 @Service
-public class RegisterCheckService {
+public class RegisterService {
 
     @Autowired
     private UserMapper userMapper;

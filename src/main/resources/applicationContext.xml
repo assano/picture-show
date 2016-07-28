@@ -15,11 +15,11 @@
     <!-- don't handle the static resource -->
     <mvc:default-servlet-handler />
 
+    <!--处理静态资源-->
+    <mvc:resources mapping="/**.html" location="/" />
+
     <!-- if you use annotation you must configure following setting -->
     <mvc:annotation-driven />
-
-    <!--处理静态资源-->
-    <mvc:resources mapping="/*.html" location="/" />
 
     <bean id="encodingFilter" class="org.springframework.web.filter.CharacterEncodingFilter">
         <property name="encoding" value="utf-8" />
