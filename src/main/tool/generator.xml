@@ -48,6 +48,7 @@
         <!--要自动生成mapper的表-->
         <table schema="psdb" tableName="user" domainObjectName="User"></table>
         <table schema="psdb" tableName="picture" domainObjectName="Picture"></table>
+        <table schema="psdb" tableName="login" domainObjectName="Login"></table>
 
     </context>
 

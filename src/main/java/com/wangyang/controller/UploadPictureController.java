@@ -19,7 +19,7 @@ public class UploadPictureController {
     @Autowired
     private UploadPictureService uploadPictureService;
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload.do", method = RequestMethod.POST)
     public String upload(@RequestParam("file") MultipartFile picture, HttpServletRequest request) {
 
         uploadPictureService.uploadPicture(picture, request);

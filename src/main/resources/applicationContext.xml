@@ -16,7 +16,7 @@
     <mvc:default-servlet-handler />
 
     <!--处理静态资源-->
-    <mvc:resources mapping="/**.html" location="/" />
+    <!--<mvc:resources mapping="/html/**" location="/" />-->
 
     <!-- if you use annotation you must configure following setting -->
     <mvc:annotation-driven />
