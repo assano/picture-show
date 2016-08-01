@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wangyang.mapper.client.LoginMapper" >
   <resultMap id="BaseResultMap" type="com.wangyang.mapper.model.Login" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="sid" property="sid" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id
+    sid, user_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangyang.mapper.model.LoginExample" >
     select
@@ -87,11 +87,11 @@
     select 
     <include refid="Base_Column_List" />
     from login
-    where id = #{id,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from login
-    where id = #{id,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.wangyang.mapper.model.LoginExample" >
     delete from login
@@ -100,25 +100,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wangyang.mapper.model.Login" >
-    insert into login (id, user_id)
-    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER})
+    insert into login (sid, user_id)
+    values (#{sid,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wangyang.mapper.model.Login" >
     insert into login
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="sid != null" >
+        sid,
       </if>
       <if test="userId != null" >
         user_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+      <if test="sid != null" >
+        #{sid,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -131,11 +131,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update login
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=VARCHAR},
       </if>
       <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -144,8 +144,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update login
-    set id = #{record.id,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER}
+    set sid = #{record.sid,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -154,14 +154,14 @@
     update login
     <set >
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wangyang.mapper.model.Login" >
     update login
-    set user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=VARCHAR}
+    set user_id = #{userId,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
   </update>
 </mapper>

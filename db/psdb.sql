@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-07-29 17:38:02
+Date: 2016-08-01 16:34:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,9 +20,9 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
-  `id` varchar(64) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `sid` varchar(64) NOT NULL,
+  `user_id` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -30,8 +30,8 @@ CREATE TABLE `login` (
 -- ----------------------------
 DROP TABLE IF EXISTS `picture`;
 CREATE TABLE `picture` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `id` varchar(64) NOT NULL COMMENT 'id',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID',
   `small_picture_path` varchar(128) NOT NULL COMMENT '略缩图相对路径',
   `large_picture_path` varchar(128) NOT NULL,
   `upload_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上传时间',
@@ -45,10 +45,10 @@ CREATE TABLE `picture` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` varchar(64) NOT NULL COMMENT 'id',
   `user_name` varchar(64) NOT NULL COMMENT '用户名',
   `password` varchar(64) NOT NULL COMMENT '用户密码',
   `register_time` date DEFAULT NULL COMMENT '注册时间',
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

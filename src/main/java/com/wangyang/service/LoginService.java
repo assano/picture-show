@@ -45,14 +45,21 @@ public class LoginService {
 
         Login login = new Login();
 
-        login.setId(sid);
+        login.setSid(sid);
 
-        loginMapper.insertSelective(login);
+        loginMapper.insert(login);
     }
 
-    //获得sid
+    //查找sid
     public Boolean findSid(String sid) {
 
-        return true;
+        if (loginMapper.selectByPrimaryKey(sid) != null) {
+
+            return true;
+
+        } else {
+
+            return false;
+        }
     }
 }

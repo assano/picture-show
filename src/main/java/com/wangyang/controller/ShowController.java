@@ -55,9 +55,9 @@ public class ShowController {
         if (flag) {
 
             //查找相片
-            List<Picture> list = showService.findPictures(offset, limit);
+            List<Picture> pictures = showService.findPictures(offset, limit);
 
-            modelAndView.addObject("list", list);
+            modelAndView.addObject("pictures", pictures);
 
             modelAndView.setViewName("show");
 

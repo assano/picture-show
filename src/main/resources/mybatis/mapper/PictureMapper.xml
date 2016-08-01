@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wangyang.mapper.client.PictureMapper" >
   <resultMap id="BaseResultMap" type="com.wangyang.mapper.model.Picture" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="small_picture_path" property="smallPicturePath" jdbcType="VARCHAR" />
     <result column="large_picture_path" property="largePicturePath" jdbcType="VARCHAR" />
     <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
@@ -109,17 +109,17 @@
       limit #{limitStart}, #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from picture
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from picture
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.wangyang.mapper.model.PictureExample" >
     delete from picture
@@ -131,7 +131,7 @@
     insert into picture (id, user_id, small_picture_path, 
       large_picture_path, upload_time, picture_name, 
       picture_description)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{smallPicturePath,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{smallPicturePath,jdbcType=VARCHAR}, 
       #{largePicturePath,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}, #{pictureName,jdbcType=VARCHAR}, 
       #{pictureDescription,jdbcType=LONGVARCHAR})
   </insert>
@@ -162,10 +162,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="smallPicturePath != null" >
         #{smallPicturePath,jdbcType=VARCHAR},
@@ -194,10 +194,10 @@
     update picture
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.smallPicturePath != null" >
         small_picture_path = #{record.smallPicturePath,jdbcType=VARCHAR},
@@ -221,8 +221,8 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update picture
-    set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
       small_picture_path = #{record.smallPicturePath,jdbcType=VARCHAR},
       large_picture_path = #{record.largePicturePath,jdbcType=VARCHAR},
       upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
@@ -234,8 +234,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update picture
-    set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
       small_picture_path = #{record.smallPicturePath,jdbcType=VARCHAR},
       large_picture_path = #{record.largePicturePath,jdbcType=VARCHAR},
       upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
@@ -248,7 +248,7 @@
     update picture
     <set >
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="smallPicturePath != null" >
         small_picture_path = #{smallPicturePath,jdbcType=VARCHAR},
@@ -266,25 +266,25 @@
         picture_description = #{pictureDescription,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wangyang.mapper.model.Picture" >
     update picture
-    set user_id = #{userId,jdbcType=INTEGER},
+    set user_id = #{userId,jdbcType=VARCHAR},
       small_picture_path = #{smallPicturePath,jdbcType=VARCHAR},
       large_picture_path = #{largePicturePath,jdbcType=VARCHAR},
       upload_time = #{uploadTime,jdbcType=TIMESTAMP},
       picture_name = #{pictureName,jdbcType=VARCHAR},
       picture_description = #{pictureDescription,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wangyang.mapper.model.Picture" >
     update picture
-    set user_id = #{userId,jdbcType=INTEGER},
+    set user_id = #{userId,jdbcType=VARCHAR},
       small_picture_path = #{smallPicturePath,jdbcType=VARCHAR},
       large_picture_path = #{largePicturePath,jdbcType=VARCHAR},
       upload_time = #{uploadTime,jdbcType=TIMESTAMP},
       picture_name = #{pictureName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
