@@ -3,6 +3,7 @@ package com.wangyang.controller;
 import com.wangyang.mapper.model.Picture;
 import com.wangyang.service.LoginService;
 import com.wangyang.service.ShowService;
+import com.wangyang.utils.LoginAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,27 +33,8 @@ public class ShowController {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        //判断是否登录
-        boolean flag = false;
-
-        for (Cookie cookie : request.getCookies()) {
-
-            if ("sid".equals(cookie.getName())) {
-
-                String tmpSid = cookie.getValue();
-
-                //匹配
-                if (loginService.findSid(tmpSid)) {
-
-                    flag = true;
-
-                    break;
-                }
-            }
-        }
-
-        //返回相册首页
-        if (flag) {
+        //判断是否登录,登录则返回相册首页
+        if (LoginAuth.loginAuth(request)){
 
             //查找相片
             List<Picture> pictures = showService.findPictures(offset, limit);
