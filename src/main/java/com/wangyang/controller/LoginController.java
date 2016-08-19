@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import java.util.UUID;
 
 /**
@@ -23,7 +26,7 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-    public ModelAndView loginCheck(User user, HttpServletResponse response) {
+    public ModelAndView loginCheck(User user, HttpServletRequest request, HttpServletResponse response) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -35,14 +38,9 @@ public class LoginController {
 
             modelAndView.setViewName("redirect:/show.do");
 
-            //登陆成功，生成sid以标识用户，并把sid存进数据库
-            String sid = UUID.randomUUID().toString();
-
-            Cookie cookie = new Cookie("sid", sid);
-
-            response.addCookie(cookie);
-
-            loginService.addSid(sid);
+            //登陆成功，保存session
+            HttpSession session = request.getSession(true);
+            session.setAttribute("userName", user.getUserName());
         }
 
         return modelAndView;
